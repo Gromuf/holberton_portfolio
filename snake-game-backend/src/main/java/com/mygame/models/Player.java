@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Getter
@@ -41,5 +42,6 @@ public class Player {
 	@OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true) // relation un a plusieurs avec Score
 																					// soit un player peut avoir plusieurs
 																					// scores
+	@JsonIgnore
 	private List<Score> scores;
 }

@@ -10,12 +10,13 @@ import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
-
+@NoArgsConstructor
 public class Score {
 
 	@Id
