@@ -48,11 +48,11 @@
         </dependency>
 
         <!-- Spring Boot Starter Security -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
             <version>${spring-boot.version}</version>
-        </dependency>
+        </dependency> -->
 
         <!-- BCrypt (pour hacher les mots de passe) -->
         <dependency>
@@ -74,7 +74,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -86,6 +85,9 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                    <compilerArgs>
+                        <arg>-parameters</arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
             
