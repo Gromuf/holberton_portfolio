@@ -1,6 +1,6 @@
 package com.mygame;
 
-import com.mygame.services.UserService;
+import com.mygame.services.PlayerService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ import java.sql.Statement;
 @Component
 public class TestDatabase {
 
-	private final UserService userService;
+	private final PlayerService playerService;
 
 	@Value("${spring.datasource.username}")
 	private String datasourceUsername;
@@ -24,8 +24,8 @@ public class TestDatabase {
 	@Value("${spring.datasource.url}")
 	private String datasourceUrl;
 
-	public TestDatabase(UserService userService) {
-		this.userService = userService;
+	public TestDatabase(PlayerService playerService) {
+		this.playerService = playerService;
 	}
 
 	@PostConstruct

@@ -26,6 +26,6 @@ public class Score {
 	private LocalDateTime dateTime;	//pour save la date et heure du score
 
 	@ManyToOne
-	@JoinColumn(name = "user_id") //reference au user dans la table score
-	private User user;
+	@JoinColumn(name = "player_id") //reference au user dans la table score
+	private Player player;
 }

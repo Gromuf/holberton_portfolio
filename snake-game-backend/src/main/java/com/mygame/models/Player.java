@@ -20,9 +20,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "\"user\"")
+@Table(name = "player")
 
-public class User {
+public class Player {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // id generé automatiquement par la db
@@ -38,8 +38,8 @@ public class User {
 	@Column(nullable = false, name = "password") // password obligatoire
 	private String password;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true) // relation un a plusieurs avec Score
-																					// soit un user peut avoir plusieurs
+	@OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true) // relation un a plusieurs avec Score
+																					// soit un player peut avoir plusieurs
 																					// scores
 	private List<Score> scores;
 }
