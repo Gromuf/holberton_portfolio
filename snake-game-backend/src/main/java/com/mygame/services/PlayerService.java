@@ -4,6 +4,8 @@ import com.mygame.models.Player;
 import com.mygame.repositories.PlayerRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PlayerService {
 
@@ -29,5 +31,15 @@ public class PlayerService {
         player.setEmail(email);
         player.setPassword(password);  // Pas de hashage ici pour l'instant
         return playerRepository.save(player);
+    }
+
+    // methode pour recuperer tous les players
+    public List<Player> getAllPlayers() {
+        return playerRepository.findAll();
+    }
+
+    //methode pour recuperer un player avec son email
+    public Player getPlayerByEmail(String email) {
+        return playerRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Player not found"));
     }
 }
