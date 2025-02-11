@@ -20,12 +20,12 @@ public class ScoreService {
 		this.playerRepository = playerRepository;
 	}
 
-	//methode pour creer un score
+	// methode pour creer un score
 	public Score createScore(Long playerId, int value) {
-		//trouve le joueur par son id
+		// trouve le joueur par son id
 		Player player = playerRepository.findById(playerId).orElseThrow(() -> new RuntimeException("Player not found"));
 
-		//creation du score
+		// creation du score
 		Score score = new Score();
 		score.setValue(value);
 		score.setPlayer(player);
@@ -33,4 +33,18 @@ public class ScoreService {
 		return scoreRepository.save(score);
 	}
 
+	// Récupérer tous les scores
+	public List<Score> getAllScores() {
+		return scoreRepository.findAll();
+	}
+
+	// Récupérer les scores par playerId
+	public List<Score> getScoresByPlayer(Long playerId) {
+		return scoreRepository.findByPlayerId(playerId);
+	}
+
+	// Récupérer les scores par username du joueur
+	public List<Score> getScoresByUsername(String username) {
+		return scoreRepository.findByPlayerUsername(username);
+	}
 }
