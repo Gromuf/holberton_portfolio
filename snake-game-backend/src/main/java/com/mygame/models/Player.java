@@ -39,9 +39,15 @@ public class Player {
 	@Column(nullable = false, name = "password") // password obligatoire
 	private String password;
 
-	@OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true) // relation un a plusieurs avec Score
-																					// soit un player peut avoir plusieurs
-																					// scores
+	@OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true) // relation un a plusieurs avec
+																						// Score
+																						// soit un player peut avoir
+																						// plusieurs
+																						// scores
 	@JsonIgnore
 	private List<Score> scores;
+
+	@OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
+	private List<Leaderboard> leaderboards;
 }
