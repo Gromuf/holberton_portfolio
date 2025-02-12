@@ -37,6 +37,7 @@ public class Player {
 	@Column(nullable = false, unique = true, name = "email") // email obligatoire et unique
 	private String email;
 
+	@JsonIgnore //evite que le password ne s'affiche dans la reponse d'api
 	@Column(nullable = false, name = "password") // password obligatoire
 	private String password;
 
