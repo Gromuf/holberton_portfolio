@@ -1,8 +1,6 @@
 package com.mygame.repositories;
 
 import com.mygame.models.Score;
-import com.mygame.models.Player;
-import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;
