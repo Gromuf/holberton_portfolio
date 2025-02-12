@@ -24,10 +24,8 @@ erDiagram
     SETTINGS {
         int id
         int player_id
-        string theme
+        string background_theme
         string snake_color
-        float volume
-        string difficulty
     }
 
     PLAYER ||--o{ SCORE : has
