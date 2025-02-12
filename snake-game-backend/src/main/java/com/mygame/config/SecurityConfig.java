@@ -1,29 +1,36 @@
-// package com.mygame.config;
+package com.mygame.config;
 
-// import org.springframework.context.annotation.Bean;
-// import org.springframework.context.annotation.Configuration;
-// import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-// import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-// import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-// import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.Customizer;
 
-// @Configuration
-// @EnableWebSecurity
-// public class SecurityConfig { // Plus besoin d'hériter de WebSecurityConfigurerAdapter
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
 
-//     @Bean
-//     public PasswordEncoder passwordEncoder() {
-//         return new BCryptPasswordEncoder();
-//     }
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http
+				// CSRF protection customization (same as before)
+				.csrf(Customizer.withDefaults()) // This disables CSRF protection for simplicity
+				// Replaced deprecated authorizeHttpRequests() with Customizer configuration
+				.authorizeHttpRequests((authorizeRequests) -> authorizeRequests
+						.requestMatchers("/players").permitAll() // Allowing public access to the /players endpoint
+						.anyRequest().authenticated() // Require authentication for other endpoints
+				)
+				.formLogin(Customizer.withDefaults()) // Enable form-based login
+				.httpBasic(Customizer.withDefaults()); // Enable basic authentication for REST APIs
 
-//     // Méthode pour configurer les règles de sécurité de ton application
-//     public void configure(HttpSecurity http) throws Exception {
-//         http
-//             .authorizeRequests()
-//                 .antMatchers("/api/public/**").permitAll() // Permet d'accéder sans authentification à /api/public/**
-//                 .anyRequest().authenticated() // Toute autre requête nécessite une authentification
-//             .and()
-//             .formLogin(); // Ou une autre méthode d'authentification
-//     }
-// }
+		return http.build();
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder(); // Using BCrypt for password encryption
+	}
+}

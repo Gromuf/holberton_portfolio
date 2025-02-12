@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    
+
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.mygame</groupId>
@@ -12,8 +12,8 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <java.version>17</java.version> <!-- Définit la version Java globalement -->
-        <spring-boot.version>3.2.2</spring-boot.version> <!-- Centralise la version Spring Boot -->
+        <java.version>17</java.version> <!-- Java version globally -->
+        <spring-boot.version>3.2.2</spring-boot.version> <!-- Centralize Spring Boot version -->
     </properties>
 
     <dependencies>
@@ -39,7 +39,7 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Lombok (simplifie le code Java) -->
+        <!-- Lombok (simplifies Java code) -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -48,20 +48,20 @@
         </dependency>
 
         <!-- Spring Boot Starter Security -->
-        <!-- <dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
             <version>${spring-boot.version}</version>
-        </dependency> -->
+        </dependency>
 
-        <!-- BCrypt (pour hacher les mots de passe) -->
+        <!-- BCrypt (for password hashing) -->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-crypto</artifactId>
             <version>6.2.2</version>
         </dependency>
 
-        <!-- JUnit 5 pour les tests -->
+        <!-- JUnit 5 for testing -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -73,6 +73,40 @@
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <!-- JJWT Dependency (for JWT token creation and validation) -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.11.5</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.11.5</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>0.11.5</version>
+        </dependency>
+
+        <!-- Jackson dependencies (ensure compatibility with Spring Boot 3.x) -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.15.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.15.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.15.0</version>
         </dependency>
     </dependencies>
 
@@ -90,8 +124,8 @@
                     </compilerArgs>
                 </configuration>
             </plugin>
-            
-            <!-- Mise à jour du plugin Spring Boot -->
+
+            <!-- Spring Boot Maven plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
