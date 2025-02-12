@@ -27,11 +27,24 @@ public class LoginController {
 	public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
 		Optional<Player> playerOptional = playerRepository.findByUsername(username);
 
-		if (playerOptional.isPresent() && passwordEncoder.matches(password, playerOptional.get().getPassword())) {
-			String token = jwtUtil.generateToken(username);
-			return ResponseEntity.ok(token);
-		} else {
+		if (playerOptional.isEmpty()) {
+			System.out.println("❌ User not found: " + username);
 			return ResponseEntity.status(401).body("Invalid username or password");
 		}
+
+		Player player = playerOptional.get();
+		System.out.println("✅ User found: " + username);
+		System.out.println("🔑 Stored hashed password: " + player.getPassword());
+		System.out.println("🔑 Raw password provided: " + password);
+
+		if (!passwordEncoder.matches(password, player.getPassword())) {
+			System.out.println("❌ Password mismatch for: " + username);
+			return ResponseEntity.status(401).body("Invalid username or password");
+		}
+
+		System.out.println("✅ Password matched! Generating token...");
+		String token = jwtUtil.generateToken(username);
+		return ResponseEntity.ok(token);
 	}
+
 }
