@@ -50,4 +50,10 @@ public class PlayerService {
     public Player getPlayerByEmail(String email) {
         return playerRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Player not found"));
     }
+
+    // methode pour recuperer un player avec son username
+    public Player getPlayerByUsername(String username) {
+        return playerRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Player not found"));
+    }
 }
