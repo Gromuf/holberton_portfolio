@@ -3,9 +3,7 @@ package com.mygame.controllers;
 import com.mygame.models.Player;
 import com.mygame.repositories.PlayerRepository;
 import com.mygame.utils.JwtUtil;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +25,6 @@ public class LoginController {
         this.jwtUtil = jwtUtil;
     }
 
-    // LoginController.java
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> requestBody) {
         String email = requestBody.get("email");
@@ -51,17 +48,11 @@ public class LoginController {
         // 🔐 Générer le token
         String token = jwtUtil.generateToken(email);
 
-        // 🍪 Définir le cookie JWT
-        ResponseCookie jwtCookie = ResponseCookie.from("jwtToken", token)
-                .httpOnly(true)
-                .secure(false)  // ⚠️ true en production
-                .path("/")
-                .maxAge(3600)
-                .sameSite("None") // ✅ obligatoire si origine différente
-                .build();
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                .body(Map.of("message", "✅ Connexion réussie.", "redirect", "/scenes/menu.html"));
+        // 🔙 Envoyer le token dans le corps de la réponse
+        return ResponseEntity.ok(Map.of(
+            "message", "✅ Connexion réussie.",
+            "token", token,
+            "redirect", "/scenes/menu.html"
+        ));
     }
 }

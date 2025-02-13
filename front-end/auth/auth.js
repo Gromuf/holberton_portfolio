@@ -1,12 +1,9 @@
-import { api } from "../api/api.js";
-
-// Connexion
 // auth.js
+
 export const login = async (email, password) => {
   const response = await fetch("http://localhost:8080/auth/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    credentials: "include",
     body: JSON.stringify({ email, password }),
   });
 
@@ -17,12 +14,22 @@ export const login = async (email, password) => {
 
   const data = await response.json();
   console.log("🟢 Login réussi:", data);
-  return data;
+
+  if (data.token) {
+    // 📌 Stocker le token en sessionStorage
+    sessionStorage.setItem("jwtToken", data.token);
+    console.log("🔑 Token JWT stocké en session:", data.token);
+  } else {
+    console.error("❌ Pas de token reçu !");
+  }
+
+  // 🔄 Redirection vers le menu
+  window.location.href = data.redirect;
 };
 
-// Déconnexion
 export const logout = async () => {
-  // Requête POST sans body
+  sessionStorage.removeItem("jwtToken"); // 🛑 Supprime le token de la session
+
   const response = await fetch("http://localhost:8080/auth/logout", {
     method: "POST",
     credentials: "include",
@@ -33,7 +40,6 @@ export const logout = async () => {
     throw new Error(`Logout failed: ${text}`);
   }
 
-  const data = await response.text();
-  console.log("🟢 Logout réussi:", data);
-  return { message: data, redirect: "/login.html" };
+  console.log("🟢 Logout réussi.");
+  window.location.href = "/scenes/login.html"; // ✅ Redirection après logout
 };
