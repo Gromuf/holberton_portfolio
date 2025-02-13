@@ -1,3 +1,6 @@
+// login.js
+import { login } from "./auth/auth.js";
+
 // 🎯 Gestion du formulaire de connexion
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -6,34 +9,21 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
 
-  // 🚨 Validation
+  // 🚨 Validation des champs
   if (!email || !password) {
     alert("⚠️ Veuillez remplir tous les champs.");
     return;
   }
 
-  // 📦 Préparer les données à envoyer au backend
-  const loginData = { email, password };
-
+  // 🌐 Connexion via le service `auth.js`
   try {
-    // 🌐 Envoi de la requête avec l'email et le mot de passe
-    const response = await fetch("http://localhost:8080/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(loginData),
-      credentials: "include", // 🍪 Permet d'inclure automatiquement les cookies JWT
-    });
+    const response = await login(email, password);
 
-    // 🔍 Traitement de la réponse
-    if (response.ok) {
-      const responseData = await response.json();
-      alert(responseData.message);
-
-      // ✅ Redirection vers la page de jeu après connexion réussie
-      window.location.href = "game.html";
+    if (response.redirect) {
+      // ✅ Redirection vers la page menu après connexion réussie
+      window.location.href = response.redirect;
     } else {
-      const errorMsg = await response.text();
-      alert(`❌ Erreur : ${errorMsg}`);
+      alert(`❌ Erreur : ${response.message || "Identifiants incorrects"}`);
     }
   } catch (error) {
     console.error("🚨 Erreur lors de la connexion:", error);

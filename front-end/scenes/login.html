@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Connexion - Retro Snake Game</title>
-    <link rel="stylesheet" href="login.css" />
-    <script src="login.js" defer></script>
+    <link rel="stylesheet" href="../login.css" />
+    <script src="../login.js" type="module" defer></script>
   </head>
   <body>
     <!-- Formulaire de connexion -->
@@ -29,6 +29,9 @@
         <button type="submit" class="btn">Se connecter</button>
       </form>
 
+      <!-- Message d'erreur -->
+      <div id="login-error" class="error-message"></div>
+
       <!-- Lien vers l'inscription -->
       <p class="back-link">
         Pas encore inscrit ? <a href="register.html">Créer un compte</a>
@@ -36,7 +39,7 @@
 
       <!-- Lien de retour à l'accueil -->
       <p class="back-link">
-        <a href="index.html">⬅️ Retour à l'accueil</a>
+        <a href="../index.html">⬅️ Retour à l'accueil</a>
       </p>
     </div>
   </body>

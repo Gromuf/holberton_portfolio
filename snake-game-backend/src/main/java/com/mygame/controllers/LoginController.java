@@ -64,6 +64,9 @@ public class LoginController {
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                .body(Map.of("message", "✅ Connexion réussie."));
+                .body(Map.of(
+					"message", "✅ Connexion réussie.",
+					"redirect", "/scenes/menu.html"
+					));
     }
 }
