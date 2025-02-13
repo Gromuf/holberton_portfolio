@@ -5,7 +5,7 @@ import com.mygame.services.ScoreService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.Map;
 import java.util.List;
 
 @RestController
@@ -20,14 +20,18 @@ public class ScoreController {
 
 	// Post score
 	@PostMapping
-	public ResponseEntity<Object> createScore(@RequestParam Long playerId, @RequestParam int value) {
+	public ResponseEntity<Object> createScore(@RequestBody Map<String, Object> requestBody) {
 		try {
+			Long playerId = Long.valueOf(requestBody.get("playerId").toString());
+			int value = (int) requestBody.get("value");
+
 			Score score = scoreService.createScore(playerId, value);
 			return new ResponseEntity<>(score, HttpStatus.CREATED);
 		} catch (RuntimeException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
+
 
 	// GET recuperer tous les scores
 	@GetMapping

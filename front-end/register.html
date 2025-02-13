@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inscription - Retro Snake Game</title>
+    <link rel="stylesheet" href="register.css" />
+    <script src="register.js" defer></script>
+  </head>
+  <body>
+    <!-- Formulaire d'inscription -->
+    <div class="register-container">
+      <h1>🧾 Inscription</h1>
+
+      <form id="registerForm">
+        <!-- Champ Nom d'utilisateur -->
+        <div class="form-group">
+          <label for="username">Nom d'utilisateur :</label>
+          <input type="text" id="username" name="username" required />
+        </div>
+
+        <!-- Champ Email -->
+        <div class="form-group">
+          <label for="email">Email :</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <!-- Champ Mot de passe -->
+        <div class="form-group">
+          <label for="password">Mot de passe :</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+
+        <!-- Champ Confirmation du mot de passe -->
+        <div class="form-group">
+          <label for="confirmPassword">Confirmer le mot de passe :</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            required
+          />
+        </div>
+
+        <!-- Bouton de soumission -->
+        <button type="submit" class="btn">S'inscrire</button>
+      </form>
+
+      <!-- Lien de retour -->
+      <p class="back-link">
+        <a href="index.html">⬅️ Retour à l'accueil</a>
+      </p>
+    </div>
+  </body>
+</html>
