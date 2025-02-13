@@ -11,41 +11,67 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-	private final JwtFilter jwtFilter; // Inject JwtFilter
+    private final JwtFilter jwtFilter;
 
-	public SecurityConfig(JwtFilter jwtFilter) {
-		this.jwtFilter = jwtFilter;
-	}
+    public SecurityConfig(JwtFilter jwtFilter) {
+        this.jwtFilter = jwtFilter;
+    }
 
-	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http
-				.csrf(csrf -> csrf.disable()) // Disable CSRF since we use JWT
-				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Stateless
-																												// session
-				.authorizeHttpRequests(auth -> auth
-						.requestMatchers("/players").permitAll() // Allow player registration
-						.requestMatchers("/login").permitAll() // Allow login endpoint
-						.anyRequest().authenticated() // Protect all other endpoints
-				)
-				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class); // Attach JwtFilter
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            // 🔐 Désactiver CSRF car on utilise des JWT
+            .csrf(csrf -> csrf.disable())
 
-		return http.build();
-	}
+            // 🛠️ Gestion des sessions en mode Stateless
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+            // 🔍 Règles d'autorisation
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/players", "/auth/login", "/leaderboard/**").permitAll() // Autoriser ces routes sans auth
+                .anyRequest().authenticated() // Protéger toutes les autres routes
+            )
 
-	@Bean
-	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
-			throws Exception {
-		return authenticationConfiguration.getAuthenticationManager();
+            // 🛑 Ajouter le filtre JWT avant l'authentification standard
+            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+    }
+
+    // 🔐 Encodeur de mot de passe avec BCrypt
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    // 🛠️ Bean pour gérer l'authentification
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    // 🌐 Configuration CORS
+    @Bean
+	public CorsFilter corsFilter() {
+		CorsConfiguration config = new CorsConfiguration();
+		config.setAllowedOriginPatterns(List.of("http://127.0.0.1:*", "http://localhost:*"));
+		config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+		config.setAllowedHeaders(List.of("*"));
+		config.setAllowCredentials(true);
+		config.setMaxAge(3600L); // Cache la config CORS pendant 1 heure
+
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", config);
+		return new CorsFilter(source);
 	}
 }

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Connexion - Retro Snake Game</title>
+    <link rel="stylesheet" href="login.css" />
+    <script src="login.js" defer></script>
+  </head>
+  <body>
+    <!-- Formulaire de connexion -->
+    <div class="login-container">
+      <h1>🔑 Connexion</h1>
+
+      <form id="loginForm">
+        <!-- Champ Email -->
+        <div class="form-group">
+          <label for="email">Email :</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <!-- Champ Mot de passe -->
+        <div class="form-group">
+          <label for="password">Mot de passe :</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+
+        <!-- Bouton de connexion -->
+        <button type="submit" class="btn">Se connecter</button>
+      </form>
+
+      <!-- Lien vers l'inscription -->
+      <p class="back-link">
+        Pas encore inscrit ? <a href="register.html">Créer un compte</a>
+      </p>
+
+      <!-- Lien de retour à l'accueil -->
+      <p class="back-link">
+        <a href="index.html">⬅️ Retour à l'accueil</a>
+      </p>
+    </div>
+  </body>
+</html>
