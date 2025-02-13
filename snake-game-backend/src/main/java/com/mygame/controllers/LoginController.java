@@ -27,7 +27,7 @@ public class LoginController {
         this.jwtUtil = jwtUtil;
     }
 
-    // ✅ Accepte JSON via @RequestBody
+    // LoginController.java
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> requestBody) {
         String email = requestBody.get("email");
@@ -37,36 +37,31 @@ public class LoginController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("❌ Email et mot de passe requis.");
         }
 
-        // 🔍 Rechercher l'utilisateur par email
         Optional<Player> playerOptional = playerRepository.findByEmail(email);
         if (playerOptional.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("❌ Utilisateur introuvable.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("❌ Identifiants incorrects.");
         }
 
         Player player = playerOptional.get();
 
-        // 🔑 Vérifier le mot de passe
         if (!passwordEncoder.matches(password, player.getPassword())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("❌ Mot de passe incorrect.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("❌ Identifiants incorrects.");
         }
 
-        // 🛠️ Générer le token JWT
+        // 🔐 Générer le token
         String token = jwtUtil.generateToken(email);
 
-        // 🍪 Créer un cookie sécurisé
+        // 🍪 Définir le cookie JWT
         ResponseCookie jwtCookie = ResponseCookie.from("jwtToken", token)
                 .httpOnly(true)
-                .secure(false) // Passe à true en production
+                .secure(false)  // ⚠️ true en production
                 .path("/")
                 .maxAge(3600)
-                .sameSite("Strict")
+                .sameSite("None") // ✅ obligatoire si origine différente
                 .build();
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                .body(Map.of(
-					"message", "✅ Connexion réussie.",
-					"redirect", "/scenes/menu.html"
-					));
+                .body(Map.of("message", "✅ Connexion réussie.", "redirect", "/scenes/menu.html"));
     }
 }

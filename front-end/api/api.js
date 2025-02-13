@@ -17,6 +17,12 @@ export const api = {
       credentials: "include",
       body: JSON.stringify(body),
     });
-    return response.json();
+
+    // ✅ Gérer les réponses vides sans planter
+    if (!response.ok) {
+      throw new Error(`Erreur API: ${response.status}`);
+    }
+
+    return await response.json(); // 🔍 Toujours attendre du JSON pour pouvoir lire le `redirect`
   },
 };

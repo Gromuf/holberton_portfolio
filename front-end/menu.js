@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const response = await logout();
       if (response.redirect) {
-        window.location.href = response.redirect;
+        window.location.href = "/scenes/login.html";
       } else {
         alert("❌ Erreur lors de la déconnexion.");
       }

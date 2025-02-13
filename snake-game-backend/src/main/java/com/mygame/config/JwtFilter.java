@@ -35,7 +35,8 @@ public class JwtFilter extends OncePerRequestFilter {
 
 		String header = request.getHeader("Authorization");
 
-		if (header == null || !header.startsWith("Bearer ")) {
+		String path = request.getRequestURI();
+		if (path.equals("/auth/logout") || header == null || !header.startsWith("Bearer ")) {
 			filterChain.doFilter(request, response);
 			return;
 		}

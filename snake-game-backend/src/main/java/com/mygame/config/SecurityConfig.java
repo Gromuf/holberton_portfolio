@@ -38,7 +38,7 @@ public class SecurityConfig {
 
             // 🔍 Règles d'autorisation
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/players", "/auth/login", "/leaderboard/**").permitAll() // Autoriser ces routes sans auth
+			.requestMatchers("/players", "/auth/login", "/auth/logout", "/leaderboard/**").permitAll() // Autoriser ces routes sans auth
                 .anyRequest().authenticated() // Protéger toutes les autres routes
             )
 

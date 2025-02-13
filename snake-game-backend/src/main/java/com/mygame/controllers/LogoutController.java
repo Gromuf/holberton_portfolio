@@ -12,21 +12,18 @@ import java.util.Map;
 public class LogoutController {
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout() {
-        // Supprimer le cookie JWT
-        ResponseCookie deleteCookie = ResponseCookie.from("jwtToken", "")
+    public ResponseEntity<Object> logout() {
+        ResponseCookie jwtCookie = ResponseCookie.from("jwtToken", "")
                 .httpOnly(true)
                 .secure(false)
                 .path("/")
-                .maxAge(0) // Expire immédiatement
-                .sameSite("Strict")
+                .maxAge(0)
+                .sameSite("None")
                 .build();
 
+        // ✅ Retourner un Map avec ResponseEntity<Object>
         return ResponseEntity.ok()
-                .header(HttpHeaders.SET_COOKIE, deleteCookie.toString())
-                .body(Map.of(
-                    "message", "👋 Déconnexion réussie.",
-                    "redirect", "/"
-                ));
+                .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+                .body(Map.of("message", "✅ Déconnexion réussie.", "redirect", "/scenes/login.html"));
     }
 }
