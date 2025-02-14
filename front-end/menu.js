@@ -21,12 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // 🚪 Déconnexion
   document.getElementById("logoutBtn").addEventListener("click", async () => {
     try {
-      const response = await logout();
-      if (response.redirect) {
-        window.location.href = "/scenes/login.html";
-      } else {
-        alert("❌ Erreur lors de la déconnexion.");
-      }
+      await logout(); // Le logout redirige déjà vers /scenes/login.html
+      console.log("🟢 Déconnexion réussie");
     } catch (error) {
       console.error("🚨 Erreur déconnexion:", error);
       alert("🚨 Une erreur est survenue lors de la déconnexion.");
