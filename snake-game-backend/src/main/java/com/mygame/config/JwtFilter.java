@@ -17,12 +17,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
+	private static final Logger logger = LoggerFactory.getLogger(JwtFilter.class);
+
 	private final PlayerRepository playerRepository;
-	private final JwtUtil jwtUtil; // Inject JwtUtil instead of using static methods
+	private final JwtUtil jwtUtil;
 
 	public JwtFilter(PlayerRepository playerRepository, JwtUtil jwtUtil) {
 		this.playerRepository = playerRepository;
@@ -30,44 +34,58 @@ public class JwtFilter extends OncePerRequestFilter {
 	}
 
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
 
-		String header = request.getHeader("Authorization");
+		String authHeader = request.getHeader("Authorization");
 
-		String path = request.getRequestURI();
-		if (path.equals("/auth/logout") || header == null || !header.startsWith("Bearer ")) {
-			filterChain.doFilter(request, response);
+		if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+			logger.warn("🔍 Aucun token ou format incorrect dans l'en-tête Authorization");
+			chain.doFilter(request, response);
 			return;
 		}
 
-		String token = header.replace("Bearer ", "");
+		String token = authHeader.substring(7);
 
 		try {
-			String username = jwtUtil.validateToken(token); // Now using instance method
+			// ✅ Valider le token et récupérer l'email
+			String email = jwtUtil.validateToken(token);
+			if (email == null) {
+				logger.error("❌ Token invalide : impossible de récupérer l'email");
+				response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+				response.getWriter().write("Token invalide");
+				return;
+			}
 
-			Optional<Player> playerOptional = playerRepository.findByUsername(username);
-
+			// 🔍 Récupérer le joueur par son email
+			Optional<Player> playerOptional = playerRepository.findByEmail(email);
 			if (playerOptional.isPresent()) {
-				UserDetails userDetails = User.withUsername(username)
-						.password(playerOptional.get().getPassword())
-						.roles("USER")
+				Player player = playerOptional.get();
+
+				// 🛠️ Création d'un UserDetails avec le bon rôle
+				UserDetails userDetails = User.withUsername(player.getEmail()) // On utilise l'email ici
+						.password(player.getPassword())
+						.authorities("ROLE_USER")
 						.build();
 
+				// 🔑 Définir l'authentification dans le contexte
 				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
 						userDetails, null, userDetails.getAuthorities());
-
 				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
 				SecurityContextHolder.getContext().setAuthentication(authentication);
+				logger.info("✅ Authentification réussie pour l'email : {}", email);
+			} else {
+				logger.warn("⚠️ Utilisateur introuvable pour l'email : {}", email);
 			}
 
 		} catch (Exception e) {
+			logger.error("🚨 Erreur dans le filtre JWT : {}", e.getMessage());
 			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-			response.getWriter().write("Invalid token");
+			response.getWriter().write("Token invalide : " + e.getMessage());
 			return;
 		}
 
-		filterChain.doFilter(request, response);
+		chain.doFilter(request, response);
 	}
 }

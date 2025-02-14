@@ -30,20 +30,26 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            // 🔐 Désactiver CSRF car on utilise des JWT
-            .csrf(csrf -> csrf.disable())
+                // 🔐 Désactiver CSRF car on utilise des JWT
+                .csrf(csrf -> csrf.disable())
 
-            // 🛠️ Gestion des sessions en mode Stateless
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                // 🛠️ Gestion des sessions en mode Stateless
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-            // 🔍 Règles d'autorisation
-            .authorizeHttpRequests(auth -> auth
-			.requestMatchers("/players", "/auth/login", "/auth/logout", "/leaderboard/**").permitAll() // Autoriser ces routes sans auth
-                .anyRequest().authenticated() // Protéger toutes les autres routes
-            )
+                // 🔍 Règles d'autorisation
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/players", "/auth/login", "/auth/logout", "/leaderboard/**").permitAll() // Autoriser
+                                                                                                                   // ces
+                                                                                                                   // routes
+                                                                                                                   // sans
+                                                                                                                   // auth
+                        .requestMatchers("/scores/**").hasAuthority("ROLE_USER") // Protéger toutes les requêtes vers
+                                                                                 // /scores
+                        .anyRequest().authenticated() // Protéger toutes les autres routes
+                )
 
-            // 🛑 Ajouter le filtre JWT avant l'authentification standard
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                // 🛑 Ajouter le filtre JWT avant l'authentification standard
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -56,22 +62,23 @@ public class SecurityConfig {
 
     // 🛠️ Bean pour gérer l'authentification
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+            throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
     // 🌐 Configuration CORS
     @Bean
-	public CorsFilter corsFilter() {
-		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowedOriginPatterns(List.of("http://127.0.0.1:*", "http://localhost:*"));
-		config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-		config.setAllowedHeaders(List.of("*"));
-		config.setAllowCredentials(true);
-		config.setMaxAge(3600L); // Cache la config CORS pendant 1 heure
+    public CorsFilter corsFilter() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOriginPatterns(List.of("http://127.0.0.1:*", "http://localhost:*"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowCredentials(true);
+        config.setMaxAge(3600L); // Cache la config CORS pendant 1 heure
 
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", config);
-		return new CorsFilter(source);
-	}
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
+    }
 }

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -30,10 +31,6 @@ public class LoginController {
         String email = requestBody.get("email");
         String password = requestBody.get("password");
 
-        if (email == null || password == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("❌ Email et mot de passe requis.");
-        }
-
         Optional<Player> playerOptional = playerRepository.findByEmail(email);
         if (playerOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("❌ Identifiants incorrects.");
@@ -45,14 +42,16 @@ public class LoginController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("❌ Identifiants incorrects.");
         }
 
-        // 🔐 Générer le token
         String token = jwtUtil.generateToken(email);
 
-        // 🔙 Envoyer le token dans le corps de la réponse
-        return ResponseEntity.ok(Map.of(
-            "message", "✅ Connexion réussie.",
-            "token", token,
-            "redirect", "/scenes/menu.html"
-        ));
+        // Inclure le playerId dans la réponse
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "✅ Connexion réussie.");
+        response.put("token", token);
+        response.put("playerId", player.getId());
+        response.put("redirect", "/scenes/menu.html");
+
+        return ResponseEntity.ok(response);
     }
+
 }

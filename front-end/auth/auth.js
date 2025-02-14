@@ -1,5 +1,6 @@
 // auth.js
 
+// auth.js
 export const login = async (email, password) => {
   try {
     const response = await fetch("http://localhost:8080/auth/login", {
@@ -16,25 +17,21 @@ export const login = async (email, password) => {
     const data = await response.json();
     console.log("🟢 Login réussi:", data);
 
-    if (data.token) {
-      // 📌 Stocker le token en sessionStorage
+    if (data.token && data.playerId) {
       sessionStorage.setItem("jwtToken", data.token);
-      console.log("🔑 Token JWT stocké en session:", data.token);
+      sessionStorage.setItem("playerId", data.playerId);
+      console.log("🔑 Token JWT et ID joueur stockés !");
     } else {
-      console.error("❌ Pas de token reçu !");
-      alert("❌ Authentification échouée : aucun token reçu.");
-      return;
+      console.error("❌ Token ou ID joueur manquant !");
     }
 
-    // ✅ Vérifier que `redirect` est défini avant d’y accéder
     if (data.redirect) {
       window.location.href = data.redirect;
-      return data;
     } else {
-      console.error("❌ Pas de redirection définie !");
-      alert("❌ Authentification réussie mais aucune redirection définie.");
-      return data;
+      alert("⚠️ Redirection manquante !");
     }
+
+    return data;
   } catch (error) {
     console.error("🚨 Erreur lors de la connexion:", error);
     alert("🚨 Une erreur est survenue lors de la connexion.");
