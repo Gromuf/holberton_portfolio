@@ -5,7 +5,7 @@ import { logout } from "../auth/auth.js";
 document.addEventListener("DOMContentLoaded", () => {
   // 🕹️ Jouer
   document.getElementById("playBtn").addEventListener("click", () => {
-    window.location.href = "/game/start";
+    window.location.href = "/scenes/game.html";
   });
 
   // ⚙️ Paramètres
