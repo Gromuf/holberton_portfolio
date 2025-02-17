@@ -1,8 +1,19 @@
-const playerId = localStorage.getItem("playerId") || 1; // Remplacer 1 par l'ID dynamique
+// Récupération du token et de l'ID joueur depuis le sessionStorage
+const token = sessionStorage.getItem("jwtToken");
+const playerId = sessionStorage.getItem("playerId");
+
+if (!token || !playerId) {
+  alert("Utilisateur non authentifié. Veuillez vous connecter.");
+  window.location.href = "/scenes/login.html"; // Rediriger vers la page de login si pas de token
+}
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    const response = await fetch(`http://localhost:8080/settings/${playerId}`);
+    const response = await fetch(`http://localhost:8080/settings/${playerId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Envoi du token JWT
+      },
+    });
     if (!response.ok) throw new Error("Failed to load settings");
 
     const settings = await response.json();
@@ -10,7 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("snakeColor").value = settings.snakeColor;
   } catch (error) {
     console.error("Error:", error);
-    alert("Failed to load player settings.");
+    alert("Impossible de charger les paramètres.");
   }
 });
 
@@ -27,16 +38,19 @@ document
         `http://localhost:8080/settings/${playerId}`,
         {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Envoi du token JWT
+          },
           body: JSON.stringify({ backgroundTheme, snakeColor }),
         }
       );
 
       if (!response.ok) throw new Error("Failed to save settings");
 
-      alert("Settings saved successfully!");
+      alert("Paramètres sauvegardés avec succès !");
     } catch (error) {
       console.error("Error:", error);
-      alert("Failed to save settings.");
+      alert("Impossible de sauvegarder les paramètres.");
     }
   });
