@@ -20,19 +20,23 @@ public class SettingsService {
 	}
 
 	public Settings getSettingsByPlayerId(Long playerId) {
-		return settingsRepository.findByPlayerId(playerId);
+		Settings settings = settingsRepository.findByPlayerId(playerId);
+		if (settings == null) {
+			Player player = playerRepository.findById(playerId)
+					.orElseThrow(() -> new RuntimeException("Player not found"));
+			settings = new Settings();
+			settings.setPlayer(player);
+			settings.setBackgroundTheme("dark");
+			settings.setSnakeColor("green");
+			settingsRepository.save(settings);
+		}
+		return settings;
 	}
 
 	public Settings updateSettings(Long playerId, String backgroundTheme, String snakeColor) {
-		Optional<Player> playerOptional = playerRepository.findById(playerId);
+		Player player = playerRepository.findById(playerId).orElseThrow(() -> new RuntimeException("Player not found"));
 
-		if (playerOptional.isEmpty()) {
-			throw new RuntimeException("Player not found");
-		}
-
-		Player player = playerOptional.get();
 		Settings settings = settingsRepository.findByPlayerId(playerId);
-
 		if (settings == null) {
 			settings = new Settings();
 			settings.setPlayer(player);

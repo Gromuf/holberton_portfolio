@@ -2,6 +2,7 @@ package com.mygame.models;
 
 import jakarta.persistence.*;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Getter
@@ -16,6 +17,7 @@ public class Settings {
 
 	@OneToOne
 	@JoinColumn(name = "player_id", nullable = false, unique = true)
+	@JsonBackReference // Ignore cette référence lors de la sérialisation pour éviter la boucle
 	private Player player;
 
 	private String backgroundTheme;
