@@ -1,0 +1,89 @@
+/* Reset */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+  }
+  
+  body {
+	height: 100vh;
+	margin: 0;
+	background-color: #1a1a1a;
+	font-family: "Courier New", Courier, monospace;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+  
+  .leaderboard-container {
+	text-align: center;
+	padding: 40px 30px;
+	border: 3px solid #00ffcc;
+	border-radius: 15px;
+	box-shadow: 0 0 30px #00ffcc;
+	background-color: #222;
+	transition: transform 0.3s ease;
+	width: 80%;
+	max-width: 800px;
+  }
+  
+  .leaderboard-container:hover {
+	transform: scale(1.05);
+  }
+  
+  h1 {
+	margin-bottom: 20px;
+	color: #00ffcc;
+  }
+  
+  .filter-buttons {
+	margin-bottom: 20px;
+  }
+  
+  .btn {
+	margin: 5px;
+	padding: 10px 20px;
+	font-size: 16px;
+	background-color: #00ffcc;
+	color: #000;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+  }
+  
+  .btn:hover {
+	background-color: #008f7a;
+  }
+  
+  .leaderboard-table {
+	width: 100%;
+	margin-top: 20px;
+	border-collapse: collapse;
+	color: #00ffcc;
+  }
+  
+  .leaderboard-table th,
+  .leaderboard-table td {
+	border: 1px solid #00ffcc;
+	padding: 12px;
+	text-align: center;
+  }
+  
+  .leaderboard-table th {
+	background-color: #333;
+  }
+  
+  .leaderboard-table tr:nth-child(even) {
+	background-color: #2a2a2a;
+  }
+  
+  .back-button {
+	margin-top: 20px;
+  }
+
+  .btn.active {
+	background-color: #008f7a; /* Couleur de hover */
+	color: #000;
+  }
+  
