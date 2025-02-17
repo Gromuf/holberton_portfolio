@@ -1,12 +1,13 @@
 {
   "dependencies": {
     "axios": "^1.7.9",
+    "http-server": "^14.1.1",
     "phaser": "^3.88.2"
   },
   "devDependencies": {
     "live-server": "^1.2.2"
   },
   "scripts": {
-  "start": "npx live-server --port=${PORT:-8080} --entry-file=index.html"
+    "start": "http-server ./ -p ${PORT:-8080} --spa"
   }
 }
