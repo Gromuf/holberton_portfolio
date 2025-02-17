@@ -39,14 +39,12 @@ public class SecurityConfig {
                 // 🔍 Règles d'autorisation
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/players", "/auth/login", "/auth/logout", "/leaderboard/**").permitAll() // Autoriser
-                                                                                                                   // ces
-                                                                                                                   // routes
                                                                                                                    // sans
                                                                                                                    // auth
                         .requestMatchers("/scores/**").hasAuthority("ROLE_USER") // Protéger toutes les requêtes vers
                                                                                  // /scores
-                        .requestMatchers("/settings/**").hasAuthority("ROLE_USER") // proteger toutes les requetes vers
-                                                                                   // settings
+                        .requestMatchers("/settings/**").hasAuthority("ROLE_USER") // Protéger toutes les requêtes vers
+                                                                                   // /settings
                         .anyRequest().authenticated() // Protéger toutes les autres routes
                 )
 
@@ -73,7 +71,11 @@ public class SecurityConfig {
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOriginPatterns(List.of("http://127.0.0.1:*", "http://localhost:*"));
+        config.setAllowedOriginPatterns(List.of(
+                "http://127.0.0.1:*",
+                "http://localhost:*",
+                "https://front-production-9743.up.railway.app" // <--- Ajout de l'URL de ton front Railway
+        ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
