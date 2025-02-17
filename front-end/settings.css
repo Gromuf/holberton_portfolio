@@ -3,9 +3,9 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-  }
-  
-  body {
+}
+
+body {
 	height: 100vh;
 	margin: 0;
 	background-color: #1a1a1a;
@@ -13,9 +13,9 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-  }
-  
-  .settings-container {
+}
+
+.settings-container {
 	text-align: center;
 	padding: 40px 30px;
 	border: 3px solid #00ffcc;
@@ -25,42 +25,59 @@
 	transition: transform 0.3s ease;
 	width: 80%;
 	max-width: 600px;
-  }
-  
-  .settings-container:hover {
+}
+
+.settings-container:hover {
 	transform: scale(1.05);
-  }
-  
-  h1 {
+}
+
+h1 {
 	margin-bottom: 20px;
 	color: #00ffcc;
-  }
-  
-  form {
+}
+
+form {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-  }
-  
-  label {
+}
+
+label {
 	margin-top: 15px;
 	margin-bottom: 5px;
 	color: #00ffcc;
 	font-size: 16px;
-  }
-  
-  input {
-	padding: 10px;
-	margin-bottom: 20px;
+}
+
+.color-picker {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin: 10px 0 20px;
+	justify-content: center;
+}
+
+.color-square {
+	width: 40px;
+	height: 40px;
 	border: 2px solid #00ffcc;
-	border-radius: 8px;
-	background-color: #1a1a1a;
-	color: #00ffcc;
-	width: 80%;
-	max-width: 400px;
-  }
-  
-  .btn {
+	cursor: pointer;
+	transition: transform 0.2s, border 0.2s;
+}
+
+.color-square:hover {
+	transform: scale(1.1);
+}
+
+.selected {
+	border: 4px solid #fff;
+}
+
+input[type="hidden"] {
+	display: none;
+}
+
+.btn {
 	margin: 10px;
 	padding: 12px 24px;
 	font-size: 16px;
@@ -70,13 +87,12 @@
 	border-radius: 10px;
 	cursor: pointer;
 	transition: background-color 0.3s ease;
-  }
-  
-  .btn:hover {
+}
+
+.btn:hover {
 	background-color: #008f7a;
-  }
-  
-  .back-button {
+}
+
+.back-button {
 	margin-top: 20px;
-  }
-  
+}

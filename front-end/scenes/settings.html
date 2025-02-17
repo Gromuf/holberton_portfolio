@@ -10,23 +10,18 @@
     <div class="settings-container">
       <h1>Settings</h1>
       <form id="settings-form">
-        <label for="backgroundTheme">Background Theme:</label>
+        <label>Background Theme:</label>
+        <div id="backgroundPicker" class="color-picker"></div>
         <input
-          type="text"
+          type="hidden"
           id="backgroundTheme"
           name="backgroundTheme"
-          placeholder="e.g. dark, light"
           required
         />
 
-        <label for="snakeColor">Snake Color:</label>
-        <input
-          type="text"
-          id="snakeColor"
-          name="snakeColor"
-          placeholder="e.g. green, blue"
-          required
-        />
+        <label>Snake Color:</label>
+        <div id="snakeColorPicker" class="color-picker"></div>
+        <input type="hidden" id="snakeColor" name="snakeColor" required />
 
         <button type="submit" class="btn">Save Settings</button>
       </form>
