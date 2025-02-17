@@ -1,2 +1,9 @@
 [service]
 root = "snake-game-backend"
+
+[build]
+builder = "nixpacks"
+buildCommand = "mvn clean package"
+
+[start]
+startCommand = "java -jar target/*.jar"
