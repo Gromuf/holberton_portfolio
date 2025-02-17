@@ -12,26 +12,23 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <java.version>17</java.version> <!-- Java version globally -->
-        <spring-boot.version>3.2.2</spring-boot.version> <!-- Centralize Spring Boot version -->
+        <java.version>17</java.version>
+        <spring-boot.version>3.2.2</spring-boot.version>
     </properties>
 
     <dependencies>
-        <!-- Spring Boot Starter Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <version>${spring-boot.version}</version>
         </dependency>
 
-        <!-- Spring Boot Starter Data JPA -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
             <version>${spring-boot.version}</version>
         </dependency>
 
-        <!-- PostgreSQL Driver -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -39,7 +36,6 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Lombok (simplifies Java code) -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -47,21 +43,18 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Spring Boot Starter Security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
             <version>${spring-boot.version}</version>
         </dependency>
 
-        <!-- BCrypt (for password hashing) -->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-crypto</artifactId>
             <version>6.2.2</version>
         </dependency>
 
-        <!-- JUnit 5 for testing -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -75,7 +68,6 @@
             </exclusions>
         </dependency>
 
-        <!-- JJWT Dependency (for JWT token creation and validation) -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
@@ -92,7 +84,6 @@
             <version>0.11.5</version>
         </dependency>
 
-        <!-- Jackson dependencies (ensure compatibility with Spring Boot 3.x) -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
@@ -130,11 +121,13 @@
                 </configuration>
             </plugin>
 
-            <!-- Spring Boot Maven plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
+                <configuration>
+                    <mainClass>com.mygame.App</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
