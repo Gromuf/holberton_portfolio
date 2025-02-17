@@ -1,1 +1,1 @@
-web: npx live-server --port $PORT
+web: npx live-server --port $PORT --entry-file=index.html
