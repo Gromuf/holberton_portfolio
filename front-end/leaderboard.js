@@ -1,6 +1,8 @@
 async function fetchLeaderboard(period) {
   try {
-    const response = await fetch(`http://localhost:8080/leaderboard/${period}`);
+    const response = await fetch(
+      `https://back-production-45d2.up.railway.app/leaderboard/${period}`
+    );
     if (!response.ok)
       throw new Error("Erreur lors de la récupération du leaderboard");
 

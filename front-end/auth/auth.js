@@ -1,9 +1,9 @@
 // auth.js
 
-// auth.js
+const API_BASE_URL = "https://back-production-45d2.up.railway.app";
 export const login = async (email, password) => {
   try {
-    const response = await fetch("http://localhost:8080/auth/login", {
+    const response = await fetch(`${API_BASE_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -43,7 +43,7 @@ export const logout = async () => {
   sessionStorage.removeItem("jwtToken"); // 🛑 Supprime le token de la session
 
   try {
-    const response = await fetch("http://localhost:8080/auth/logout", {
+    const response = await fetch(`${API_BASE_URL}/auth/logout`, {
       method: "POST",
       credentials: "include",
     });

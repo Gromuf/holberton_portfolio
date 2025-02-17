@@ -5,7 +5,7 @@ async function fetchSettings() {
   if (token && playerId) {
     try {
       const response = await fetch(
-        `http://localhost:8080/settings/${playerId}`,
+        `https://back-production-45d2.up.railway.app/settings/${playerId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }

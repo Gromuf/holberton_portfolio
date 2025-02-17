@@ -24,11 +24,14 @@ document
 
     try {
       // Envoi au backend
-      const response = await fetch("http://localhost:8080/players", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(userData),
-      });
+      const response = await fetch(
+        "https://back-production-45d2.up.railway.app/players",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(userData),
+        }
+      );
 
       if (response.ok) {
         alert("✅ Inscription réussie ! Redirection vers la connexion...");

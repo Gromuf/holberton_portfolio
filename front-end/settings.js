@@ -34,9 +34,12 @@ function createColorPicker(containerId, colors, inputId) {
 
 async function fetchSettings() {
   try {
-    const response = await fetch(`http://localhost:8080/settings/${playerId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await fetch(
+      `https://back-production-45d2.up.railway.app/settings/${playerId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     if (!response.ok) throw new Error("Failed to load settings");
     const settings = await response.json();
 
@@ -74,7 +77,7 @@ document
 
     try {
       const response = await fetch(
-        `http://localhost:8080/settings/${playerId}`,
+        `https://back-production-45d2.up.railway.app/settings/${playerId}`,
         {
           method: "PUT",
           headers: {

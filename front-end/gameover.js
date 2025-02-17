@@ -6,7 +6,7 @@ const playerId = sessionStorage.getItem("playerId");
 document.getElementById("scoreDisplay").innerText = `Votre score : ${score}`;
 
 // Envoyer le score au backend
-fetch("http://localhost:8080/scores", {
+fetch("https://back-production-45d2.up.railway.app/scores", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",

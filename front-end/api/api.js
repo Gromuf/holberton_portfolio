@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:8080";
+const API_BASE_URL = "back-production-45d2.up.railway.app";
 
 export const api = {
   get: async (url) => {
