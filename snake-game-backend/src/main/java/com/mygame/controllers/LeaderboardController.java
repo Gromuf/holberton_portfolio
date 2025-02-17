@@ -7,25 +7,34 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/leaderboard")
 public class LeaderboardController {
 
-	private final LeaderboardService leaderboardService;
+    private final LeaderboardService leaderboardService;
 
-	public LeaderboardController(LeaderboardService leaderboardService) {
+    public LeaderboardController(LeaderboardService leaderboardService) {
         this.leaderboardService = leaderboardService;
     }
 
-	// GET récupérer le leaderboard par période (daily, weekly, monthly, all-time)
     @GetMapping("/{period}")
-    public ResponseEntity<List<Leaderboard>> getLeaderboardByPeriod(@PathVariable String period) {
+    public ResponseEntity<List<LeaderboardDTO>> getLeaderboardByPeriod(@PathVariable String period) {
         try {
             List<Leaderboard> leaderboard = leaderboardService.getLeaderboardByPeriod(period);
-            return new ResponseEntity<>(leaderboard, HttpStatus.OK);
+
+            List<LeaderboardDTO> leaderboardDTOs = leaderboard.stream()
+                    .map(lb -> new LeaderboardDTO(
+                            lb.getPlayer().getUsername(),
+                            lb.getScore().getValue(),
+                            lb.getRank(),
+                            lb.getPeriod()))
+                    .collect(Collectors.toList());
+
+            return new ResponseEntity<>(leaderboardDTOs, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // Erreur 400 si période invalide
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 }
