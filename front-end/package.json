@@ -7,7 +7,7 @@
     "live-server": "^1.2.2"
   },
   "scripts": {
-  "start": "live-server --port=3000",
+  "start": "live-server --port=${PORT:-3000} --entry-file=index.html",
   "build": "echo 'No build step necessary for a vanilla JS project'"
   }
 }
