@@ -1,0 +1,5 @@
+[build]
+builder = "Nixpacks"
+
+[start]
+cmd = "npx live-server --port ${PORT}"
