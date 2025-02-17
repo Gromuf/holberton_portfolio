@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings</title>
+    <link rel="stylesheet" href="../settings.css" />
+  </head>
+  <body>
+    <div class="settings-container">
+      <h1>Settings</h1>
+      <form id="settings-form">
+        <label for="backgroundTheme">Background Theme:</label>
+        <input
+          type="text"
+          id="backgroundTheme"
+          name="backgroundTheme"
+          placeholder="e.g. dark, light"
+          required
+        />
+
+        <label for="snakeColor">Snake Color:</label>
+        <input
+          type="text"
+          id="snakeColor"
+          name="snakeColor"
+          placeholder="e.g. green, blue"
+          required
+        />
+
+        <button type="submit" class="btn">Save Settings</button>
+      </form>
+      <button
+        class="btn back-button"
+        onclick="window.location.href='/scenes/menu.html'"
+      >
+        Back to Menu
+      </button>
+    </div>
+
+    <script src="../settings.js"></script>
+  </body>
+</html>
