@@ -1,9 +1,6 @@
-[service]
-root = "snake-game-backend"
-
 [build]
-builder = "nixpacks"
-buildCommand = "mvn clean package"
+builder = "Nixpacks"
+buildCommand = "./mvnw clean package -DskipTests"
 
 [start]
-startCommand = "java -Dserver.port=$PORT -jar target/*.jar"
+cmd = "java -Dserver.port=${PORT} -jar target/*.jar"
