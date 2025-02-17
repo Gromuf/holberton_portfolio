@@ -62,15 +62,21 @@ label {
 	height: 40px;
 	border: 2px solid #00ffcc;
 	cursor: pointer;
-	transition: transform 0.2s, border 0.2s;
+	transition: transform 0.2s, border 0.2s, opacity 0.2s;
 }
 
 .color-square:hover {
 	transform: scale(1.1);
 }
 
-.selected {
-	border: 4px solid #fff;
+.color-square.selected {
+	transform: scale(1.3); /* Carré sélectionné agrandi */
+	border: 4px solid #fff; /* Bordure plus épaisse */
+	opacity: 1;
+}
+
+.color-square:not(.selected) {
+	opacity: 0.5; /* Réduit l'opacité des autres */
 }
 
 input[type="hidden"] {
