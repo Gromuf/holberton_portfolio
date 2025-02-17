@@ -45,6 +45,8 @@ public class SecurityConfig {
                                                                                                                    // auth
                         .requestMatchers("/scores/**").hasAuthority("ROLE_USER") // Protéger toutes les requêtes vers
                                                                                  // /scores
+                        .requestMatchers("/settings/**").hasAuthority("ROLE_USER") // proteger toutes les requetes vers
+                                                                                   // settings
                         .anyRequest().authenticated() // Protéger toutes les autres routes
                 )
 
