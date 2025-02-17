@@ -6,4 +6,4 @@ builder = "nixpacks"
 buildCommand = "mvn clean package"
 
 [start]
-startCommand = "java -jar target/*.jar"
+startCommand = "java -Dserver.port=$PORT -jar target/*.jar"
