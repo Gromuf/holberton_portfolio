@@ -26,24 +26,51 @@
 	width: 80%;
 	max-width: 800px;
 	height: 90vh;
-	overflow-y: auto;
 	display: flex;
 	flex-direction: column;
+	position: relative;
+	overflow: hidden; /* Empêche tout le conteneur de défiler */
   }
   
   .leaderboard-container:hover {
 	transform: scale(1.05);
   }
   
+  /* Bouton de retour toujours en haut à gauche de l'interface */
+  .back-button {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	margin: 0;
+	padding: 8px 15px;
+	font-size: 14px;
+	z-index: 1000;
+  }
+  
+  /* Garde la partie haute visible (titre + boutons) même au scroll */
+  .header-section {
+	position: sticky;
+	top: 0;
+	background-color: #222;
+	padding-bottom: 10px;
+	z-index: 999;
+  }
+  
+  /* Titre */
   h1 {
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 	color: #00ffcc;
   }
   
+  /* Boutons de filtre */
   .filter-buttons {
-	margin-bottom: 20px;
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	padding-bottom: 10px;
   }
   
+  /* Style des boutons */
   .btn {
 	margin: 5px;
 	padding: 10px 20px;
@@ -60,14 +87,22 @@
 	background-color: #008f7a;
   }
   
-  .leaderboard-table {
-	width: 100%;
-	margin-top: 20px;
-	border-collapse: collapse;
-	color: #00ffcc;
+  .btn.active {
+	background-color: #008f7a; /* Couleur de hover */
+	color: #000;
+  }
+  
+  /* Tableau (scrollable) */
+  .leaderboard-table-container {
 	flex: 1;
 	overflow-y: auto;
-	max-height: 60vh;
+	max-height: 70vh; /* Ajustable si besoin */
+  }
+  
+  .leaderboard-table {
+	width: 100%;
+	border-collapse: collapse;
+	color: #00ffcc;
   }
   
   .leaderboard-table th,
@@ -85,12 +120,25 @@
 	background-color: #2a2a2a;
   }
   
-  .back-button {
-	margin-top: 20px;
-  }
-
-  .btn.active {
-	background-color: #008f7a; /* Couleur de hover */
-	color: #000;
+  /* Personnaliser la barre de défilement */
+::-webkit-scrollbar {
+	width: 10px; /* Largeur de la barre de défilement */
   }
   
+  /* Personnaliser la poignée (la partie draggable) */
+  ::-webkit-scrollbar-thumb {
+	background-color: #00ffcc; /* Couleur de la poignée */
+	border-radius: 5px; /* Bords arrondis */
+	border: 2px solid #222; /* Bordure autour de la poignée */
+  }
+  
+  /* Personnaliser l'arrière-plan de la barre de défilement */
+  ::-webkit-scrollbar-track {
+	background-color: #333; /* Couleur de l'arrière-plan */
+	border-radius: 5px;
+  }
+  
+  /* Changer la couleur au survol */
+  ::-webkit-scrollbar-thumb:hover {
+	background-color: #008f7a; /* Couleur au survol */
+  }

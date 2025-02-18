@@ -8,36 +8,42 @@
   </head>
   <body>
     <div class="leaderboard-container">
-      <h1>Leaderboard</h1>
-      <div class="filter-buttons">
-        <button class="btn" onclick="fetchLeaderboard('daily')">Daily</button>
-        <button class="btn" onclick="fetchLeaderboard('weekly')">Weekly</button>
-        <button class="btn" onclick="fetchLeaderboard('monthly')">
-          Monthly
-        </button>
-        <button class="btn" onclick="fetchLeaderboard('all-time')">
-          All Time
-        </button>
-      </div>
-      <table class="leaderboard-table">
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Username</th>
-            <th>Score</th>
-            <th>Period</th>
-          </tr>
-        </thead>
-        <tbody id="leaderboard-body">
-          <!-- Les scores seront insérés ici -->
-        </tbody>
-      </table>
       <button
         class="btn back-button"
         onclick="window.location.href='/scenes/menu.html'"
       >
         Retour au Menu
       </button>
+      <div class="header-section">
+        <h1>Leaderboard</h1>
+        <div class="filter-buttons">
+          <button class="btn" onclick="fetchLeaderboard('daily')">Daily</button>
+          <button class="btn" onclick="fetchLeaderboard('weekly')">
+            Weekly
+          </button>
+          <button class="btn" onclick="fetchLeaderboard('monthly')">
+            Monthly
+          </button>
+          <button class="btn" onclick="fetchLeaderboard('all-time')">
+            All Time
+          </button>
+        </div>
+      </div>
+      <div class="leaderboard-table-container">
+        <table class="leaderboard-table">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Username</th>
+              <th>Score</th>
+              <th>Period</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-body">
+            <!-- Les scores seront insérés ici -->
+          </tbody>
+        </table>
+      </div>
     </div>
     <script src="../leaderboard.js"></script>
   </body>
