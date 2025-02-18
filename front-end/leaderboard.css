@@ -25,6 +25,10 @@
 	transition: transform 0.3s ease;
 	width: 80%;
 	max-width: 800px;
+	height: 90vh;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
   }
   
   .leaderboard-container:hover {
@@ -61,6 +65,9 @@
 	margin-top: 20px;
 	border-collapse: collapse;
 	color: #00ffcc;
+	flex: 1;
+	overflow-y: auto;
+	max-height: 60vh;
   }
   
   .leaderboard-table th,
