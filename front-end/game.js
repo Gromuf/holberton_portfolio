@@ -34,23 +34,30 @@ fetchSettings().then((settings) => {
     }
 
     create() {
+      // Vérifie que Phaser est bien attaché à l'élément #game
+      console.log("Vérification de #game:", document.getElementById("game"));
+
       this.cameras.main.setBackgroundColor(this.backgroundColor);
       this.score = 0;
+      this.speed = 200;
+      this.lastMoveTime = 0;
+      this.direction = "RIGHT";
+      this.snakePositions = [{ x: 160, y: 160 }];
+
+      // Ajoute un texte pour le score
       this.scoreText = this.add.text(10, 10, "Score: 0", {
         fontFamily: "Press Start 2P",
         fontSize: "16px",
         fill: this.backgroundColor === "#1a1a1a" ? "#00ffc3" : "#000",
       });
 
-      this.add.rectangle(400, 300, 800, 600).setStrokeStyle(4, this.snakeColor);
+      // Crée le serpent et la nourriture
       this.snake = this.add.group();
-      this.direction = "RIGHT";
-      this.speed = 200;
-      this.lastMoveTime = 0;
-      this.snakePositions = [{ x: 160, y: 160 }];
       this.drawSnake();
       this.food = this.add.rectangle(300, 300, 20, 20, 0xff0000).setOrigin(0);
       this.placeFood();
+
+      // Écoute les touches du clavier
       this.input.keyboard.on("keydown", (event) => {
         if (event.key === "ArrowUp" && this.direction !== "DOWN")
           this.direction = "UP";
@@ -74,7 +81,7 @@ fetchSettings().then((settings) => {
       this.snake.clear(true, true);
       this.snakePositions.forEach((pos) => {
         const rect = this.add
-          .rectangle(pos.x, pos.y, 20, 20, this.snakeColor)
+          .rectangle(pos.x + 2, pos.y + 2, 16, 16, this.snakeColor) // Ajoute un léger espace
           .setOrigin(0)
           .setStrokeStyle(2, 0x000000);
         this.snake.add(rect);
@@ -84,6 +91,7 @@ fetchSettings().then((settings) => {
     moveSnake() {
       const head = this.snakePositions[0];
       let newHead;
+
       switch (this.direction) {
         case "UP":
           newHead = { x: head.x, y: head.y - 20 };
@@ -98,6 +106,8 @@ fetchSettings().then((settings) => {
           newHead = { x: head.x + 20, y: head.y };
           break;
       }
+
+      // Vérifie si le serpent sort de la zone de jeu
       if (
         newHead.x < 0 ||
         newHead.x >= 800 ||
@@ -111,19 +121,30 @@ fetchSettings().then((settings) => {
         this.gameOver();
         return;
       }
+
+      // Ajoute la nouvelle tête
       this.snakePositions.unshift(newHead);
+
+      // Vérifie si le serpent mange la nourriture
       if (newHead.x === this.food.x && newHead.y === this.food.y) {
         this.score += 10;
         this.scoreText.setText(`Score: ${this.score}`);
         this.speed = Math.max(50, this.speed - 10);
         this.placeFood();
-      } else this.snakePositions.pop();
+      } else {
+        this.snakePositions.pop();
+      }
+
       this.drawSnake();
     }
 
     placeFood() {
-      const x = Phaser.Math.Between(0, 39) * 20;
-      const y = Phaser.Math.Between(0, 29) * 20;
+      let x, y;
+      do {
+        x = Phaser.Math.Between(0, 39) * 20;
+        y = Phaser.Math.Between(0, 29) * 20;
+      } while (this.snakePositions.some((pos) => pos.x === x && pos.y === y));
+
       this.food.setPosition(x, y);
     }
 
@@ -137,9 +158,18 @@ fetchSettings().then((settings) => {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
+    parent: "game", // S'assure que le jeu s'affiche dans #game
     scene: SnakeGame,
     backgroundColor: settings.backgroundColor,
   };
 
-  new Phaser.Game(config);
+  const game = new Phaser.Game(config);
+
+  // Attendre que Phaser soit bien chargé avant de redimensionner
+  setTimeout(() => {
+    game.scale.resize(800, 600);
+  }, 100);
+
+  // Débogage pour vérifier que Phaser est bien attaché
+  console.log("Phaser initialisé dans #game:", document.getElementById("game"));
 });

@@ -13,14 +13,25 @@
   </head>
   <body>
     <div class="game-container">
-      <h2>🐍 Snake Game</h2>
-      <div id="game"></div>
-      <button
-        id="backToMenu"
-        onclick="window.location.href='/scenes/menu.html'"
-      >
-        ⬅️ Retour au menu
-      </button>
+      <!-- Interface en haut -->
+      <div class="interface-top">
+        <h2>🐍 Snake Game</h2>
+      </div>
+
+      <!-- Zone de jeu -->
+      <div id="game-container">
+        <div id="game"></div>
+      </div>
+
+      <!-- Interface en bas -->
+      <div class="interface-bottom">
+        <button
+          id="backToMenu"
+          onclick="window.location.href='/scenes/menu.html'"
+        >
+          ⬅️ Retour au menu
+        </button>
+      </div>
     </div>
 
     <script src="../game.js"></script>

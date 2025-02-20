@@ -1,36 +1,87 @@
+/* === Suppression des marges et des scrollbars === */
+html,
 body {
-    background-color: #1a1a1a;
-    color: #00ffc3;
-    font-family: 'Press Start 2P', cursive;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Empêche le scroll */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #111;
+  color: #00ffc3;
+  font-family: "Press Start 2P", cursive;
 }
 
+/* === Conteneur principal === */
 .game-container {
-    text-align: center;
-    background-color: #111;
-    border: 2px solid #00ffc3;
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 0 20px #00ffc3;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Centre verticalement */
 }
 
+/* === Titre du jeu === */
+h2 {
+  margin: 0;
+  padding: 5px;
+  font-size: 1.5em;
+}
+
+/* === Zone de jeu avec une couleur légèrement plus foncée === */
+#game-container {
+  width: 800px;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0d0d0d; /* Légèrement plus foncé que le fond du jeu */
+  border-radius: 10px;
+  border: 2px solid #00ffc3; /* Bordure lumineuse */
+  box-shadow: 0 0 15px #00ffc3, 0 0 30px #00ffc3; /* Effet lumineux */
+}
+
+/* Supprime l'effet lumineux des interfaces */
+.interface-top,
+.interface-bottom {
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #111; /* Garde un fond foncé sans lumière */
+  box-shadow: none; /* Supprime la lueur */
+  border: none; /* Supprime toute bordure */
+  user-select: none; /* Empêche la sélection du texte */
+  pointer-events: none; /* Empêche le focus */
+}
+
+/* === Bouton de retour === */
 #backToMenu {
-    margin-top: 20px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 10px;
-    font-size: 1.2em;
-    background-color: #00ffc3;
-    color: #000;
-    cursor: pointer;
-    transition: 0.3s;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  background-color: #00ffc3;
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  user-select: none; /* Empêche la sélection du texte */
+  outline: none; /* Supprime le contour bleu de sélection */
 }
 
 #backToMenu:hover {
-    background-color: #008f7a;
+  background-color: #008f7a;
+}
+
+#backToMenu:focus {
+  outline: none; /* Supprime le focus par défaut */
+}
+
+#game {
+  width: 100%;
+  height: 100%;
 }
