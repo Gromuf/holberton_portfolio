@@ -35,3 +35,8 @@ document.getElementById("replayBtn").addEventListener("click", () => {
 document.getElementById("menuBtn").addEventListener("click", () => {
   window.location.href = "/scenes/menu.html";
 });
+
+// Rediriger vers la page d'ajout d'avis en gardant le score
+document.getElementById("reviewBtn").addEventListener("click", () => {
+  window.location.href = `/scenes/addReview.html?score=${score}`;
+});
