@@ -1,0 +1,87 @@
+body {
+    background-color: #1a1a1a;
+    color: #00ffc3;
+    font-family: 'Press Start 2P', cursive;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+}
+
+.reviews-container {
+    background-color: #111;
+    border: 2px solid #00ffc3;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 0 20px #00ffc3;
+    text-align: center;
+    transition: transform 0.3s ease;
+    width: 80%;
+    max-width: 600px;
+}
+
+.reviews-container:hover {
+    transform: scale(1.05);
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #00ffc3;
+    text-shadow: 0 0 10px #00ffc3;
+}
+
+#reviewsList {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.review-card {
+    background-color: #000;
+    border: 2px solid #00ffc3;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px #00ffc3;
+    text-align: left;
+}
+
+.review-card h3 {
+    margin: 0 0 10px 0;
+    color: #00ffc3;
+}
+
+.review-card p {
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+.review-score {
+    font-weight: bold;
+    color: #00ffc3;
+    display: block;
+    text-align: right;
+}
+
+button {
+    background-color: #000;
+    color: #00ffc3;
+    border: 2px solid #00ffc3;
+    border-radius: 15px;
+    padding: 15px 30px;
+    margin-top: 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px #00ffc3;
+}
+
+button:hover {
+    background-color: #00ffc3;
+    color: #000;
+    box-shadow: 0 0 20px #00ffc3;
+    transform: translateY(-5px);
+}

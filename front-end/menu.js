@@ -18,6 +18,11 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = "/scenes/leaderboard.html";
   });
 
+  // 📝 Voir les Avis
+  document.getElementById("reviewsBtn").addEventListener("click", () => {
+    window.location.href = "/scenes/reviews.html";
+  });
+
   // 🚪 Déconnexion
   document.getElementById("logoutBtn").addEventListener("click", async () => {
     try {
