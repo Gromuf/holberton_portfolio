@@ -56,7 +56,7 @@ h2 {
   box-shadow: none; /* Supprime la lueur */
   border: none; /* Supprime toute bordure */
   user-select: none; /* Empêche la sélection du texte */
-  pointer-events: none; /* Empêche le focus */
+  /* pointer-events: none; Empêche le focus */
 }
 
 /* === Bouton de retour === */
