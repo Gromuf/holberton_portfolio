@@ -1,144 +1,168 @@
 /* Reset */
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-  }
-  
-  body {
-	height: 100vh;
-	margin: 0;
-	background-color: #1a1a1a;
-	font-family: "Courier New", Courier, monospace;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  background-color: #1a1a1a;
+  font-family: "Courier New", Courier, monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Supprime tout scroll global */
+}
+
+.leaderboard-container {
+  text-align: center;
+  padding: 40px 30px;
+  border: 3px solid #00ffcc;
+  border-radius: 15px;
+  box-shadow: 0 0 30px #00ffcc;
+  background-color: #222;
+  transition: transform 0.3s ease;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.leaderboard-container:hover {
+  transform: scale(1.05);
+}
+
+/* Bouton de retour */
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  margin: 0;
+  padding: 8px 15px;
+  font-size: 14px;
+  z-index: 1000;
+}
+
+/* Garde la partie haute visible */
+.header-section {
+  position: sticky;
+  top: 0;
+  background-color: #222;
+  padding-bottom: 10px;
+  z-index: 999;
+}
+
+/* Titre */
+h1 {
+  margin-bottom: 10px;
+  color: #00ffcc;
+}
+
+/* Boutons de filtre */
+.filter-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding-bottom: 10px;
+}
+
+/* Style des boutons */
+.btn {
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #00ffcc;
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover,
+.btn.active {
+  background-color: #008f7a;
+}
+
+/* Tableau (scrollable) */
+.leaderboard-table-container {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 70vh;
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #00ffcc;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  border: 1px solid #00ffcc;
+  padding: 12px;
+  text-align: center;
+}
+
+.leaderboard-table th {
+  background-color: #333;
+}
+
+.leaderboard-table tr:nth-child(even) {
+  background-color: #2a2a2a;
+}
+
+/* Personnalisation de la barre de défilement */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #00ffcc;
+  border-radius: 5px;
+  border: 2px solid #222;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #333;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #008f7a;
+}
+
+/* 📱 Responsive design */
+@media (max-width: 768px) {
   .leaderboard-container {
-	text-align: center;
-	padding: 40px 30px;
-	border: 3px solid #00ffcc;
-	border-radius: 15px;
-	box-shadow: 0 0 30px #00ffcc;
-	background-color: #222;
-	transition: transform 0.3s ease;
-	width: 80%;
-	max-width: 800px;
-	height: 90vh;
-	display: flex;
-	flex-direction: column;
-	position: relative;
-	overflow: hidden; /* Empêche tout le conteneur de défiler */
+    width: 95%;
+    padding: 20px;
   }
-  
-  .leaderboard-container:hover {
-	transform: scale(1.05);
-  }
-  
-  /* Bouton de retour toujours en haut à gauche de l'interface */
-  .back-button {
-	position: absolute;
-	top: 20px;
-	left: 20px;
-	margin: 0;
-	padding: 8px 15px;
-	font-size: 14px;
-	z-index: 1000;
-  }
-  
-  /* Garde la partie haute visible (titre + boutons) même au scroll */
-  .header-section {
-	position: sticky;
-	top: 0;
-	background-color: #222;
-	padding-bottom: 10px;
-	z-index: 999;
-  }
-  
-  /* Titre */
-  h1 {
-	margin-bottom: 10px;
-	color: #00ffcc;
-  }
-  
-  /* Boutons de filtre */
-  .filter-buttons {
-	display: flex;
-	justify-content: center;
-	gap: 10px;
-	padding-bottom: 10px;
-  }
-  
-  /* Style des boutons */
+
   .btn {
-	margin: 5px;
-	padding: 10px 20px;
-	font-size: 16px;
-	background-color: #00ffcc;
-	color: #000;
-	border: none;
-	border-radius: 10px;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
+    font-size: 14px;
+    padding: 8px 15px;
   }
-  
-  .btn:hover {
-	background-color: #008f7a;
-  }
-  
-  .btn.active {
-	background-color: #008f7a; /* Couleur de hover */
-	color: #000;
-  }
-  
-  /* Tableau (scrollable) */
-  .leaderboard-table-container {
-	flex: 1;
-	overflow-y: auto;
-	max-height: 70vh; /* Ajustable si besoin */
-  }
-  
-  .leaderboard-table {
-	width: 100%;
-	border-collapse: collapse;
-	color: #00ffcc;
-  }
-  
+
   .leaderboard-table th,
   .leaderboard-table td {
-	border: 1px solid #00ffcc;
-	padding: 12px;
-	text-align: center;
+    padding: 8px;
   }
-  
-  .leaderboard-table th {
-	background-color: #333;
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.2em;
   }
-  
-  .leaderboard-table tr:nth-child(even) {
-	background-color: #2a2a2a;
+
+  .btn {
+    font-size: 12px;
+    padding: 6px 10px;
   }
-  
-  /* Personnaliser la barre de défilement */
-::-webkit-scrollbar {
-	width: 10px; /* Largeur de la barre de défilement */
-  }
-  
-  /* Personnaliser la poignée (la partie draggable) */
-  ::-webkit-scrollbar-thumb {
-	background-color: #00ffcc; /* Couleur de la poignée */
-	border-radius: 5px; /* Bords arrondis */
-	border: 2px solid #222; /* Bordure autour de la poignée */
-  }
-  
-  /* Personnaliser l'arrière-plan de la barre de défilement */
-  ::-webkit-scrollbar-track {
-	background-color: #333; /* Couleur de l'arrière-plan */
-	border-radius: 5px;
-  }
-  
-  /* Changer la couleur au survol */
-  ::-webkit-scrollbar-thumb:hover {
-	background-color: #008f7a; /* Couleur au survol */
-  }
+}
