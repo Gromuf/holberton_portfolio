@@ -14,7 +14,7 @@ body {
   padding: 10px;
   text-align: center;
   min-height: 100vh;
-  overflow: hidden; /* Supprime la scrollbar globale */
+  overflow-x: hidden; /* Empêche le scroll horizontal */
 }
 
 .reviews-container {
@@ -29,6 +29,9 @@ body {
   max-width: 600px;
   max-height: 80vh;
   overflow-y: auto; /* Permet de scroller uniquement dans ce bloc */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .reviews-container:hover {
