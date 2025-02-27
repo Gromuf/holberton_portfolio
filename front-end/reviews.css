@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 
 body {
+  overflow-x: hidden; /* Supprime totalement le scroll horizontal */
   background-color: #1a1a1a;
   color: #00ffc3;
   font-family: "Press Start 2P", cursive !important;
@@ -14,7 +15,7 @@ body {
   padding: 10px;
   text-align: center;
   min-height: 100vh;
-  overflow-x: hidden; /* Empêche le scroll horizontal */
+  overflow: hidden; /* Empêche le scroll horizontal */
 }
 
 .reviews-container {
@@ -28,7 +29,8 @@ body {
   width: 90%;
   max-width: 600px;
   max-height: 80vh;
-  overflow-y: auto; /* Permet de scroller uniquement dans ce bloc */
+  overflow-y: auto;
+  overflow-x: hidden; /* Permet de scroller uniquement dans ce bloc */
   display: flex;
   flex-direction: column;
   justify-content: center;
