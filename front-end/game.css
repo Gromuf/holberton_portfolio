@@ -34,7 +34,7 @@ h2 {
 /* === Zone de jeu avec une couleur légèrement plus foncée === */
 #game-container {
   width: 800px;
-  height: 600px;
+  max-width: 90vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -82,6 +82,9 @@ h2 {
 }
 
 #game {
+
+}
+
+#game canvas {
   width: 100%;
-  height: 100%;
 }
