@@ -1,10 +1,18 @@
-// menu.js
 import { logout } from "../auth/auth.js";
 
 // 🎯 Attacher les événements après le chargement du DOM
 document.addEventListener("DOMContentLoaded", () => {
+  const playButton = document.getElementById("playBtn");
+  const mobileWarning = document.querySelector(".mobile-warning");
+
+  // Détection du mobile ou tablette
+  if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
+    playButton.style.display = "none"; // Cache le bouton
+    mobileWarning.style.display = "block"; // Affiche le message
+  }
+
   // 🕹️ Jouer
-  document.getElementById("playBtn").addEventListener("click", () => {
+  playButton?.addEventListener("click", () => {
     window.location.href = "/scenes/game.html";
   });
 
@@ -26,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 🚪 Déconnexion
   document.getElementById("logoutBtn").addEventListener("click", async () => {
     try {
-      await logout(); // Le logout redirige déjà vers /scenes/login.html
+      await logout();
       console.log("🟢 Déconnexion réussie");
     } catch (error) {
       console.error("🚨 Erreur déconnexion:", error);
