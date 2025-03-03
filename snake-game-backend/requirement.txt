@@ -1,0 +1,24 @@
+# 1️⃣ Java Development Kit (JDK)
+JDK=17+
+
+# 2️⃣ Build & Dependency Management
+Maven=3.8+
+
+# 3️⃣ Base de données
+PostgreSQL=14+  # Si besoin de travailler en local avec une base PostgreSQL
+
+# 4️⃣ Outils recommandés
+Git=latest
+Postman=latest  # Pour tester l'API REST
+cURL=latest  # Alternative à Postman pour tester les endpoints en ligne de commande
+
+# 5️⃣ IDE recommandés
+VS Code avec les extensions Java et Spring Boot
+
+## 🚀 Commandes utiles pour exécuter le projet en local
+mvn spring-boot:run # ne fonctionnera pas car backend deja hebergé sur railway
+
+
+### 1️⃣ Installation des dépendances et compilation du projet
+```bash
+mvn clean install

@@ -1,0 +1,17 @@
+# 1️⃣ Node.js et npm (Gestionnaire de paquets)
+Node.js=18+  # Version LTS recommandée
+npm=9+  # Livré avec Node.js
+
+# 2️⃣ Librairies principales
+Phaser=3+  # Moteur de jeu
+
+# 3️⃣ Outils recommandés
+Git=latest  # Gestion de version
+VS Code=latest  # IDE recommandé avec l’extension JavaScript
+
+## 🚀 Commandes utiles pour exécuter le projet en local
+npm start
+
+### 1️⃣ Installation des dépendances du projet
+```bash
+npm install
