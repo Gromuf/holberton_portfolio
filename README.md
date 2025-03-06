@@ -1,20 +1,31 @@
 # 🐍 Snake Game Backend & Frontend
 
-Bienvenue dans le projet **Snake Game** ! Ce projet est composé d’un **backend** en **Java (Spring Boot)** et d’un **frontend** en **JavaScript avec Phaser**.
+Bienvenue dans le projet **Snake Game** ! Ce projet est composé d’un **backend** en **Java (Spring Boot)** et d’un **frontend** en **JavaScript avec Phaser**. L'objectif est de fournir une expérience de jeu fluide avec un système de leaderboard et des scores persistants.
 
-## 💁️ Structure du projet
+---
+
+## 📚 Contexte du projet
+
+Ce projet a été réalisé dans le cadre d'un **projet étudiant** visant à développer une application web interactive intégrant un backend robuste et un frontend dynamique. Il s'agit d'un exercice de mise en pratique des compétences acquises en **développement full-stack**, en particulier sur les technologies **Spring Boot**, **PostgreSQL**, et **Phaser 3**.
+
+---
+
+## 📁 Structure du projet
 
 ```
 /holberton_portfolio
 │── snake-game-backend/          # Code source du backend (Spring Boot, PostgreSQL)
-│   ├── src/          # Code source Java
-│   ├── pom.xml       # Fichier de configuration Maven
-│   └── requirements.txt # Instructions pour l'installation du backend
-│── front-end/         # Code source du frontend (JavaScript, Phaser)
-│   ├── src/          # Code source JS
-│   ├── package.json  # Dépendances Node.js
-│   └── requirements.txt # Instructions pour l'installation du frontend
-│── README.md         # Ce fichier
+│   ├── src/                     # Code source Java
+│   ├── pom.xml                  # Fichier de configuration Maven
+│   ├── application.properties    # Configuration du backend
+│   ├── README.md                 # Instructions spécifiques au backend
+│   └── requirements.txt          # Instructions d'installation du backend
+│── front-end/                    # Code source du frontend (JavaScript, Phaser)
+│   ├── src/                      # Code source JS
+│   ├── package.json              # Dépendances Node.js
+│   ├── README.md                 # Instructions spécifiques au frontend
+│   └── requirements.txt          # Instructions d'installation du frontend
+│── README.md                     # Ce fichier
 ```
 
 ---
@@ -23,12 +34,12 @@ Bienvenue dans le projet **Snake Game** ! Ce projet est composé d’un **backen
 
 Toutes les informations nécessaires pour **installer et exécuter** le projet en local sont disponibles dans les fichiers **`requirements.txt`** de chaque partie du projet :
 
-- 📺 **Backend** : Voir le fichier [`backend/requirements.txt`](backend/requirements.txt)
-- 📺 **Frontend** : Voir le fichier [`frontend/requirements.txt`](frontend/requirements.txt)
+- **Backend** : Voir le fichier [`backend/requirements.txt`](backend/requirements.txt)
+- **Frontend** : Voir le fichier [`frontend/requirements.txt`](frontend/requirements.txt)
 
 ### ⚠️ Remarque importante pour le backend
 
-Le **backend n'est pas exécutable en local** sans **modifications** des fichiers de configuration.\
+Le **backend n'est pas exécutable en local** sans **modifications** des fichiers de configuration.  
 Pour l’adapter à un environnement local, vous devrez :
 
 - Modifier **`application.properties`** (`src/main/resources/application.properties`) pour configurer la base de données locale.
@@ -41,18 +52,27 @@ Le **frontend**, en revanche, peut être exécuté en local **sans modification 
 
 ---
 
-## 💽 API Backend
+## 📍 API Backend
 
 Le backend expose une API REST accessible via `http://localhost:8080` (si exécuté en local) ou via l’URL de production.
 
-Exemples d’endpoints disponibles :
+### **Endpoints disponibles :**
 
 | Méthode | Endpoint                    | Description                              |
 | ------- | --------------------------- | ---------------------------------------- |
 | `GET`   | `/players`                  | Récupère tous les joueurs                |
 | `POST`  | `/players`                  | Crée un nouveau joueur                   |
 | `GET`   | `/scores/player/{playerId}` | Récupère les scores d'un joueur          |
+| `POST`  | `/scores`                   | Enregistre un score pour un joueur       |
 | `GET`   | `/leaderboard/{period}`     | Récupère le classement selon une période |
+
+Exemple de requête pour récupérer le classement des scores :
+
+```bash
+curl -X GET http://localhost:8080/leaderboard/daily
+```
+
+Si une authentification est requise, assurez-vous d'ajouter un token dans l'en-tête de la requête.
 
 ---
 
@@ -60,20 +80,28 @@ Exemples d’endpoints disponibles :
 
 Le frontend est développé avec **Phaser** et peut être exécuté en local avec **Node.js**.
 
+### **Installation et démarrage**
+
 1. **Installer les dépendances** :
+
    ```bash
    cd frontend
    npm install
    ```
+
 2. **Lancer le serveur de développement** :
+
    ```bash
    npm start
    ```
+
 3. **Accéder au jeu** via le navigateur :
+
    ```
    http://localhost:3000
    ```
-   *(Le port peut varier selon la configuration.)*
+
+   _(Le port peut varier selon la configuration.)_
 
 ---
 
@@ -85,11 +113,31 @@ Le frontend est développé avec **Phaser** et peut être exécuté en local ave
 - **Spring Boot**
 - **PostgreSQL** (ou H2 en local)
 - **Maven**
+- **Spring Security (si applicable)**
 
 ### **Frontend**
 
 - **JavaScript**
 - **Phaser 3**
 - **Node.js 18+**
+- **React (si applicable)**
+
+---
+
+## 🏆 Fonctionnalités principales
+
+- 🏅 **Système de leaderboard** : Suivi des scores des joueurs (journalier, hebdomadaire, mensuel, all-time).
+- 👤 **Authentification des joueurs** : Création de compte et connexion.
+- 🎮 **Gameplay interactif** : Contrôlez un serpent qui grandit en mangeant des fruits.
+- 🏁 **Gestion des parties** : Calcul du score et soumission automatique.
+- 🎨 **Personnalisation** : Thèmes et couleurs modifiables.
+
+---
+
+## 👨‍👩‍👦 Auteur
+
+- **Nom :** Louis Beaumois
+- **GitHub :** https://github.com/Gromuf
+- **Projet réalisé dans le cadre d'une formation étudiante**
 
 ---
