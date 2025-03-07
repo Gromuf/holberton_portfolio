@@ -113,14 +113,11 @@ Le frontend est développé avec **Phaser** et peut être exécuté en local ave
 - **Spring Boot**
 - **PostgreSQL** (ou H2 en local)
 - **Maven**
-- **Spring Security (si applicable)**
 
 ### **Frontend**
 
 - **JavaScript**
 - **Phaser 3**
-- **Node.js 18+**
-- **React (si applicable)**
 
 ---
 
