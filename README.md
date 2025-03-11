@@ -2,6 +2,8 @@
 
 Bienvenue dans le projet **Snake Game** ! Ce projet est composé d’un **backend** en **Java (Spring Boot)** et d’un **frontend** en **JavaScript avec Phaser**. L'objectif est de fournir une expérience de jeu fluide avec un système de leaderboard et des scores persistants.
 
+🌍 **[Accéder à la Landing Page](https://holberton-portfolio.vercel.app/)**
+
 ---
 
 ## 📚 Contexte du projet
@@ -134,7 +136,8 @@ Le frontend est développé avec **Phaser** et peut être exécuté en local ave
 ## 👨‍👩‍👦 Auteur
 
 - **Nom :** Louis Beaumois
-- **GitHub :** https://github.com/Gromuf
+- **GitHub :** [Gromuf](https://github.com/Gromuf)
+- 🌍 **[Landing Page](https://holberton-portfolio.vercel.app/)**
 - **Projet réalisé dans le cadre d'une formation étudiante**
 
 ---
